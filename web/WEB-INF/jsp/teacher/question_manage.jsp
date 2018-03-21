@@ -39,25 +39,34 @@
 <div class="page-container">
     <div class="text-c">
         <span class="select-box inline">
-		<select name="" class="select">
-			<option value="0">全部分类</option>
-			<option value="1">分类一</option>
-			<option value="2">分类二</option>
+        <select name="questionType" class="select" id="question_select1">
+            <option value="all">全部分类</option>
+            <option value="0">单择题</option>
+            <option value="1">多选题</option>
+            <option value="2">判断题</option>
+            <option value="3">简答题</option>
+            <option value="4">编程题</option>
+        </select>
+        </span>
+        <span class="select-box inline">
+		<select name="subjects_select" id="question_select2" class="select">
+			<option value="all">全部分类</option>
+            <c:forEach items="${coursesList}" var="course">
+                <option value="${course.id}">${course.courseName}</option>
+            </c:forEach>
 		</select>
 		</span>
         <span class="select-box inline">
-		<select name="" class="select">
-			<option value="0">全部分类</option>
-			<option value="1">分类一</option>
-			<option value="2">分类二</option>
+		<select name="module_select" id="question_select3" class="select">
+            <option value="all">全部分类</option>
 		</select>
-		</span> 日期范围：
+		</span>日期范围：
         <input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin"
                class="input-text Wdate" style="width:120px;">
         -
         <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax"
                class="input-text Wdate" style="width:120px;">
-        <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜试题</button>
+        <button name="" id="" class="btn btn-success" onClick="search()"><i class="Hui-iconfont">&#xe665;</i> 搜试题</button>
     </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"><a href="javascript:;" onclick="datasdel()"
                                                                class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
@@ -214,7 +223,37 @@
 <script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
 
+    $(function () {
 
+        $("#question_select2").change(function () {
+
+            var subjects = $("#question_select2 option:selected");
+            if(subjects.val()=='all'){
+                $("#question_select3 option").remove();
+                $("#question_select3").append("<option value=\"all\">全部分类</option>");
+            }else {
+                $.ajax({
+                    type: "POST",
+                    url: "/question/selectChange",
+                    data: {id: subjects.val()},
+                    success: function (data) {
+                        if (data.data != null) {
+                            $("#question_select3 option").remove();
+                            $("#question_select3").append("<option value=\"all\">全部分类</option>");
+                            $.each(data.data, function (index, element) {
+                                // console.info(element);
+                                $("#question_select3").append("<option value=\"" + element.id + "\">" + element.teacherCategoryName + "</option>");
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+
+
+
+    });
     function datasdel() {
         var smdlist = $("tbody").find(".smd_question_id:checked");
         var fsplist = $("tbody").find(".fsp_question_id:checked");
@@ -228,14 +267,14 @@
         $.each(fsplist, function (i, e) {
             fspids = e.value + "," + fspids
         });
-        if(smdids==""){
-            smdids=null;
+        if (smdids == "") {
+            smdids = null;
         }
-        if(fspids==""){
-            fspids=null;
+        if (fspids == "") {
+            fspids = null;
         }
-        alert(fspids+":"+smdids);
-        if(smdids!=null||fspids!=null){
+        alert(fspids + ":" + smdids);
+        if (smdids != null || fspids != null) {
             layer.confirm('确认要删除这' + sum + '条数据吗？', function (index) {
                 $.ajax({
                     type: 'POST',
@@ -374,6 +413,36 @@
     //     $(obj).parents("tr").find(".td-manage").html("");
     //     layer.msg('已提交申请，耐心等待审核!', {icon: 1,time:2000});
     // }
+    
+    function search() {
+        var va1 = $("#question_select1 option:selected").val();
+        var va2 = $("#question_select2 option:selected").val();
+        var va3 = $("#question_select3 option:selected").val();
+        if(va1=="all"){
+            va1=null;
+        }
+        if(va2=="all"){
+            va2=null;
+            va3=null;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/question/search',
+            data: {va1: va1, va2: va2, va3: va3},
+            dataType: 'json',
+            success: function (data) {
+                if(data.smdlist!=null){
+
+                }else if(data.fspList!=null){
+
+                }
+            },
+            error: function (data) {
+                console.log(data.msg);
+            },
+        });
+    }
 
 </script>
 </body>

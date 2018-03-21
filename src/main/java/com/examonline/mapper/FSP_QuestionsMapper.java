@@ -13,6 +13,8 @@ public interface FSP_QuestionsMapper {
 
     Temp_FSP_Question getTemp_FSP_QuestionByFSP_QuestionsID(@Param("id")Integer id);
 
+    List<Temp_FSP_Question> getAllTemp_FSP_Question(@Param("userId")Integer id,@Param("questionType")Integer questionType,@Param("courseId")Integer courseId,@Param("teacherCategoryID")Integer teacherCategoryID);
+
     long countByExample(FSP_QuestionsExample example);
 
     int deleteByExample(FSP_QuestionsExample example);

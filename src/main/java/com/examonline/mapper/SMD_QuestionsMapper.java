@@ -3,7 +3,6 @@ package com.examonline.mapper;
 import com.examonline.common.entity.SMD_Questions;
 import com.examonline.common.entity.SMD_QuestionsExample;
 import java.util.List;
-
 import com.examonline.common.entity.Temp_SMD_Question;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,6 +10,9 @@ public interface SMD_QuestionsMapper {
     List<Temp_SMD_Question> getTemp_SMD_Question(@Param("id") Integer id);
 
     Temp_SMD_Question getTemp_SMD_QuestionBySMD_QuestionsID(@Param("id") Integer id);
+
+    List<Temp_SMD_Question> getAllTemp_SMD_Question(@Param("userId")Integer id, @Param("questionType")Integer questionType, @Param("courseId")Integer courseId, @Param("teacherCategoryID")Integer teacherCategoryID);
+
 
     long countByExample(SMD_QuestionsExample example);
 

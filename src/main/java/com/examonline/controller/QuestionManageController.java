@@ -33,6 +33,7 @@ public class QuestionManageController {
     @Autowired
     CoursesService coursesService;
 
+    /*试题管理首页*/
     @RequestMapping("/index")
     public String questionManageIndex(@SessionAttribute User user, Model model){
         List<Temp_SMD_Question> smd_questionsList = new ArrayList<>();
@@ -42,18 +43,20 @@ public class QuestionManageController {
             smd_questionsList = smd_questionsService.getTemp_SMD_Question(user.getId());
         }
         System.out.println(fsp_questionsList.size());
-
+        model.addAttribute("coursesList",coursesService.getAllCourses());
         model.addAttribute("fsp_questionsList",fsp_questionsList);
         model.addAttribute("smd_questionsList",smd_questionsList);
         return "/teacher/question_manage";
     }
 
+    /*试题添加页面*/
     @RequestMapping("/showAdd")
     public String showQuestionAdd(Model model) {
         model.addAttribute("coursesList",coursesService.getAllCourses());
         return "/teacher/question_add";
     }
 
+    /*动态选项*/
     @RequestMapping(value = "/selectChange", method = RequestMethod.POST)
     @ResponseBody
     public Object selectChange(Courses courses){
@@ -64,6 +67,7 @@ public class QuestionManageController {
         return data;
     }
 
+    /*创建试题后保存并提交审核*/
     @RequestMapping(value = "/saveSubmitSMD", method = RequestMethod.POST)
     @ResponseBody
     public Object saveSubmitSMD(SMD_Questions smd_questions, HttpSession session){
@@ -82,6 +86,7 @@ public class QuestionManageController {
         return data;
     }
 
+    /*创建试题后保存并提交审核*/
     @RequestMapping(value = "/saveSubmitFSP", method = RequestMethod.POST)
     @ResponseBody
     public Object saveSubmitFSP(FSP_Questions fsp_questions, HttpSession session){
@@ -99,7 +104,7 @@ public class QuestionManageController {
         System.out.println(fsp_questions);
         return data;
     }
-
+    /*创建试题后保存草稿*/
     @RequestMapping(value = "/saveSMD", method = RequestMethod.POST)
     @ResponseBody
     public Object saveSMD(SMD_Questions smd_questions, HttpSession session){
@@ -117,7 +122,7 @@ public class QuestionManageController {
         System.out.println(smd_questions);
         return data;
     }
-
+    /*创建试题后保存草稿*/
     @RequestMapping(value = "/saveFSP", method = RequestMethod.POST)
     @ResponseBody
     public Object saveFSP(FSP_Questions fsp_questions, HttpSession session){
@@ -135,7 +140,7 @@ public class QuestionManageController {
         System.out.println(fsp_questions);
         return data;
     }
-
+    /*修改后提交*/
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     @ResponseBody
     public Object submitQuestion(Integer id, Integer questionType){
@@ -162,6 +167,8 @@ public class QuestionManageController {
         }
         return data;
     }
+
+    /*单个删除*/
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
     public Object delQuestion(Integer id, Integer questionType){
@@ -198,6 +205,7 @@ public class QuestionManageController {
         return data;
     }
 
+    /*题目编辑页面*/
     @RequestMapping("/edit")
     public String QuestionEdit(Model model,Integer id, Integer questionType) {
         if(questionType!=null&&id!=null){
@@ -217,7 +225,7 @@ public class QuestionManageController {
         }
         return "/teacher/404";
     }
-
+    /*更新提交*/
     @RequestMapping(value = "/updateSubmitFSP", method = RequestMethod.POST)
     @ResponseBody
     public Object updateSubmitFSP(FSP_Questions fsp_questions){
@@ -235,7 +243,7 @@ public class QuestionManageController {
         System.out.println(fsp_questions);
         return data;
     }
-
+    /*更新提交*/
     @RequestMapping(value = "/updateSubmitSMD", method = RequestMethod.POST)
     @ResponseBody
     public Object updateSubmitSMD(SMD_Questions smd_questions){
@@ -254,6 +262,7 @@ public class QuestionManageController {
         return data;
     }
 
+    /*批量删除*/
     @RequestMapping(value = "/dels", method = RequestMethod.POST)
     @ResponseBody
     public Object dels(String smdids,String fspids){
@@ -294,6 +303,23 @@ public class QuestionManageController {
             }
         }
         data.put("msg","选中"+(smdList.length+fspList.length)+"条数据,提交删除申请"+(smdListSubmitDel.size()+fspListSubmitDel.size())+"条,实际删除"+(smdListDel.size()+fspListDel.size())+"条");
+        return data;
+    }
+
+    /*更新提交*/
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @ResponseBody
+    public Object search(Integer va1,Integer va2,Integer va3){
+        Map<String,Object> data = new HashMap<>();
+        data.put("smdList",null);
+        data.put("fspList",null);
+        if(va1==null){
+            if(va2==null){
+
+            }
+        }else{
+
+        }
         return data;
     }
 

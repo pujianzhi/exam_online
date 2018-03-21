@@ -73,6 +73,40 @@
     AND b.course_id=c.id
   </select>
 
+  <select id="getAllTemp_SMD_Question" resultMap="CResultMap">
+    SELECT a.id 'id', a.id 'aid', a.question, a.question_type, a.teacher_category_id, a.pubdate, a.descrpt, a.option_A, a.option_B,
+    a.option_C, a.option_D, a.option_E, a.option_F, a.option_G, a.answer, a.state, a.user_id,
+    b.id 'bid', b.teacher_category_name, b.course_id,
+    c.id 'cid', c.course_name
+    from smd_questions as a,teacher_category AS b,courses AS c
+    <where>
+      <if test="userId!=null">
+        AND a.user_id=#{userId}
+      </if>
+      <if test="questionType!=null and courseId==null and teacherCategoryID==null">
+        AND a.question_type=#{questionType}
+        AND a.teacher_category_id = b.id
+        AND b.course_id=c.id
+      </if>
+      <if test="questionType==null and courseId!=null and teacherCategoryID==null">
+        AND c.id=#{courseId}
+        AND c.id=b.course_id
+        AND  b.id=a.teacher_category_id
+      </if>
+      <if test="questionType==null and courseId!=null and teacherCategoryID!=null">
+        AND a.teacher_category_id =#{teacherCategoryID}
+        AND a.teacher_category_id = b.id
+        AND b.course_id = c.id
+      </if>
+      <if test="questionType!=null and courseId!=null and teacherCategoryID!=null">
+        AND a.question_type=4
+        AND a.teacher_category_id =1
+        AND a.teacher_category_id = b.id
+        AND b.course_id = c.id
+      </if>
+    </where>
+  </select>
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
