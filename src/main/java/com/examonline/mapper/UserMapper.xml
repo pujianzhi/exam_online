@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.examonline.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.examonline.common.entity.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="eou_no" jdbcType="VARCHAR" property="eouNo" />
+    <result column="id_card_no" jdbcType="VARCHAR" property="idCardNo" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="pass_word" jdbcType="VARCHAR" property="passWord" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="home_tel" jdbcType="VARCHAR" property="homeTel" />
+    <result column="home_addr" jdbcType="VARCHAR" property="homeAddr" />
+    <result column="sch_addr" jdbcType="VARCHAR" property="schAddr" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="nation_place" jdbcType="VARCHAR" property="nationPlace" />
+    <result column="marjor" jdbcType="VARCHAR" property="marjor" />
+    <result column="edu_Background" jdbcType="VARCHAR" property="eduBackground" />
+    <result column="graduate_School" jdbcType="VARCHAR" property="graduateSchool" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, eou_no, id_card_no, user_name, pass_word, mobile, home_tel, home_addr, sch_addr, 
+    qq, email, user_type, gender, birthday, nation_place, marjor, edu_Background, graduate_School
+  </sql>
+  <select id="selectByExample" parameterType="com.examonline.common.entity.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from eo_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from eo_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from eo_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.examonline.common.entity.UserExample">
+    delete from eo_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.examonline.common.entity.User">
+    insert into eo_user (id, eou_no, id_card_no, 
+      user_name, pass_word, mobile, 
+      home_tel, home_addr, sch_addr, 
+      qq, email, user_type, 
+      gender, birthday, nation_place, 
+      marjor, edu_Background, graduate_School
+      )
+    values (#{id,jdbcType=INTEGER}, #{eouNo,jdbcType=VARCHAR}, #{idCardNo,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{homeTel,jdbcType=VARCHAR}, #{homeAddr,jdbcType=VARCHAR}, #{schAddr,jdbcType=VARCHAR}, 
+      #{qq,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{userType,jdbcType=INTEGER}, 
+      #{gender,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{nationPlace,jdbcType=VARCHAR}, 
+      #{marjor,jdbcType=VARCHAR}, #{eduBackground,jdbcType=VARCHAR}, #{graduateSchool,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.examonline.common.entity.User">
+    insert into eo_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="eouNo != null">
+        eou_no,
+      </if>
+      <if test="idCardNo != null">
+        id_card_no,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="passWord != null">
+        pass_word,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="homeTel != null">
+        home_tel,
+      </if>
+      <if test="homeAddr != null">
+        home_addr,
+      </if>
+      <if test="schAddr != null">
+        sch_addr,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="nationPlace != null">
+        nation_place,
+      </if>
+      <if test="marjor != null">
+        marjor,
+      </if>
+      <if test="eduBackground != null">
+        edu_Background,
+      </if>
+      <if test="graduateSchool != null">
+        graduate_School,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="eouNo != null">
+        #{eouNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardNo != null">
+        #{idCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null">
+        #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTel != null">
+        #{homeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddr != null">
+        #{homeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="schAddr != null">
+        #{schAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="nationPlace != null">
+        #{nationPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="marjor != null">
+        #{marjor,jdbcType=VARCHAR},
+      </if>
+      <if test="eduBackground != null">
+        #{eduBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateSchool != null">
+        #{graduateSchool,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.examonline.common.entity.UserExample" resultType="java.lang.Long">
+    select count(*) from eo_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update eo_user
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.eouNo != null">
+        eou_no = #{record.eouNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idCardNo != null">
+        id_card_no = #{record.idCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passWord != null">
+        pass_word = #{record.passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeTel != null">
+        home_tel = #{record.homeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeAddr != null">
+        home_addr = #{record.homeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schAddr != null">
+        sch_addr = #{record.schAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null">
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userType != null">
+        user_type = #{record.userType,jdbcType=INTEGER},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null">
+        birthday = #{record.birthday,jdbcType=DATE},
+      </if>
+      <if test="record.nationPlace != null">
+        nation_place = #{record.nationPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marjor != null">
+        marjor = #{record.marjor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eduBackground != null">
+        edu_Background = #{record.eduBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graduateSchool != null">
+        graduate_School = #{record.graduateSchool,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update eo_user
+    set id = #{record.id,jdbcType=INTEGER},
+      eou_no = #{record.eouNo,jdbcType=VARCHAR},
+      id_card_no = #{record.idCardNo,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      pass_word = #{record.passWord,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      home_tel = #{record.homeTel,jdbcType=VARCHAR},
+      home_addr = #{record.homeAddr,jdbcType=VARCHAR},
+      sch_addr = #{record.schAddr,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      user_type = #{record.userType,jdbcType=INTEGER},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      birthday = #{record.birthday,jdbcType=DATE},
+      nation_place = #{record.nationPlace,jdbcType=VARCHAR},
+      marjor = #{record.marjor,jdbcType=VARCHAR},
+      edu_Background = #{record.eduBackground,jdbcType=VARCHAR},
+      graduate_School = #{record.graduateSchool,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.examonline.common.entity.User">
+    update eo_user
+    <set>
+      <if test="eouNo != null">
+        eou_no = #{eouNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardNo != null">
+        id_card_no = #{idCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null">
+        pass_word = #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTel != null">
+        home_tel = #{homeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddr != null">
+        home_addr = #{homeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="schAddr != null">
+        sch_addr = #{schAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="nationPlace != null">
+        nation_place = #{nationPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="marjor != null">
+        marjor = #{marjor,jdbcType=VARCHAR},
+      </if>
+      <if test="eduBackground != null">
+        edu_Background = #{eduBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateSchool != null">
+        graduate_School = #{graduateSchool,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.examonline.common.entity.User">
+    update eo_user
+    set eou_no = #{eouNo,jdbcType=VARCHAR},
+      id_card_no = #{idCardNo,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      pass_word = #{passWord,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      home_tel = #{homeTel,jdbcType=VARCHAR},
+      home_addr = #{homeAddr,jdbcType=VARCHAR},
+      sch_addr = #{schAddr,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      nation_place = #{nationPlace,jdbcType=VARCHAR},
+      marjor = #{marjor,jdbcType=VARCHAR},
+      edu_Background = #{eduBackground,jdbcType=VARCHAR},
+      graduate_School = #{graduateSchool,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

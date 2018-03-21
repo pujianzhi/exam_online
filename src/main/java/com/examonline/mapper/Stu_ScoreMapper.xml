@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.examonline.mapper.Stu_ScoreMapper">
+  <resultMap id="BaseResultMap" type="com.examonline.common.entity.Stu_Score">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="score" jdbcType="DOUBLE" property="score" />
+    <result column="test_date" jdbcType="DATE" property="testDate" />
+    <result column="descrpt" jdbcType="VARCHAR" property="descrpt" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="exam_no" jdbcType="VARCHAR" property="examNo" />
+    <result column="fsp_score" jdbcType="DOUBLE" property="fspScore" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, score, test_date, descrpt, user_id, exam_no, fsp_score
+  </sql>
+  <select id="selectByExample" parameterType="com.examonline.common.entity.Stu_ScoreExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stu_score
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stu_score
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from stu_score
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.examonline.common.entity.Stu_ScoreExample">
+    delete from stu_score
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.examonline.common.entity.Stu_Score">
+    insert into stu_score (id, score, test_date, 
+      descrpt, user_id, exam_no, 
+      fsp_score)
+    values (#{id,jdbcType=INTEGER}, #{score,jdbcType=DOUBLE}, #{testDate,jdbcType=DATE}, 
+      #{descrpt,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{examNo,jdbcType=VARCHAR}, 
+      #{fspScore,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.examonline.common.entity.Stu_Score">
+    insert into stu_score
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="testDate != null">
+        test_date,
+      </if>
+      <if test="descrpt != null">
+        descrpt,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="examNo != null">
+        exam_no,
+      </if>
+      <if test="fspScore != null">
+        fsp_score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="testDate != null">
+        #{testDate,jdbcType=DATE},
+      </if>
+      <if test="descrpt != null">
+        #{descrpt,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="examNo != null">
+        #{examNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fspScore != null">
+        #{fspScore,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.examonline.common.entity.Stu_ScoreExample" resultType="java.lang.Long">
+    select count(*) from stu_score
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update stu_score
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=DOUBLE},
+      </if>
+      <if test="record.testDate != null">
+        test_date = #{record.testDate,jdbcType=DATE},
+      </if>
+      <if test="record.descrpt != null">
+        descrpt = #{record.descrpt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.examNo != null">
+        exam_no = #{record.examNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fspScore != null">
+        fsp_score = #{record.fspScore,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update stu_score
+    set id = #{record.id,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=DOUBLE},
+      test_date = #{record.testDate,jdbcType=DATE},
+      descrpt = #{record.descrpt,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      exam_no = #{record.examNo,jdbcType=VARCHAR},
+      fsp_score = #{record.fspScore,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.examonline.common.entity.Stu_Score">
+    update stu_score
+    <set>
+      <if test="score != null">
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="testDate != null">
+        test_date = #{testDate,jdbcType=DATE},
+      </if>
+      <if test="descrpt != null">
+        descrpt = #{descrpt,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="examNo != null">
+        exam_no = #{examNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fspScore != null">
+        fsp_score = #{fspScore,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.examonline.common.entity.Stu_Score">
+    update stu_score
+    set score = #{score,jdbcType=DOUBLE},
+      test_date = #{testDate,jdbcType=DATE},
+      descrpt = #{descrpt,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      exam_no = #{examNo,jdbcType=VARCHAR},
+      fsp_score = #{fspScore,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
