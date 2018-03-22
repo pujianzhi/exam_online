@@ -13,4 +13,6 @@ public interface FSP_QuestionsService {
     Integer insertFSP_Questions(FSP_Questions fsp_questions);
     Integer updateFSP_Questions(FSP_Questions fsp_questions);
     Integer deletFSP_Questions(Integer id);
+    List<Temp_FSP_Question> getAllTemp_FSP_Question(Integer id,Integer questionType,Integer courseId,Integer teacherCategoryID);
+
 }

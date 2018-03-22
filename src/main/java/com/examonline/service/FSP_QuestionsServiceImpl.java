@@ -48,4 +48,9 @@ public class FSP_QuestionsServiceImpl implements FSP_QuestionsService {
     public Integer deletFSP_Questions(Integer id) {
         return fsp_questionsMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public List<Temp_FSP_Question> getAllTemp_FSP_Question(Integer id, Integer questionType, Integer courseId, Integer teacherCategoryID) {
+        return fsp_questionsMapper.getAllTemp_FSP_Question(id,questionType,courseId,teacherCategoryID);
+    }
 }

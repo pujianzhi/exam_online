@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.examonline.mapper.SMD_QuestionsMapper">
-  <resultMap id="BaseResultMap" type="com.examonline.common.entity.SMD_Questions">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="question" jdbcType="VARCHAR" property="question" />
-    <result column="question_type" jdbcType="INTEGER" property="questionType" />
-    <result column="teacher_category_id" jdbcType="INTEGER" property="teacherCategoryId" />
-    <result column="pubdate" jdbcType="TIMESTAMP" property="pubdate" />
-    <result column="descrpt" jdbcType="VARCHAR" property="descrpt" />
-    <result column="option_A" jdbcType="VARCHAR" property="optionA" />
-    <result column="option_B" jdbcType="VARCHAR" property="optionB" />
-    <result column="option_C" jdbcType="VARCHAR" property="optionC" />
-    <result column="option_D" jdbcType="VARCHAR" property="optionD" />
-    <result column="option_E" jdbcType="VARCHAR" property="optionE" />
-    <result column="option_F" jdbcType="VARCHAR" property="optionF" />
-    <result column="option_G" jdbcType="VARCHAR" property="optionG" />
-    <result column="answer" jdbcType="VARCHAR" property="answer" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.examonline.common.entity.SMD_Questions">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="question" jdbcType="VARCHAR" property="question"/>
+        <result column="question_type" jdbcType="INTEGER" property="questionType"/>
+        <result column="teacher_category_id" jdbcType="INTEGER" property="teacherCategoryId"/>
+        <result column="pubdate" jdbcType="TIMESTAMP" property="pubdate"/>
+        <result column="descrpt" jdbcType="VARCHAR" property="descrpt"/>
+        <result column="option_A" jdbcType="VARCHAR" property="optionA"/>
+        <result column="option_B" jdbcType="VARCHAR" property="optionB"/>
+        <result column="option_C" jdbcType="VARCHAR" property="optionC"/>
+        <result column="option_D" jdbcType="VARCHAR" property="optionD"/>
+        <result column="option_E" jdbcType="VARCHAR" property="optionE"/>
+        <result column="option_F" jdbcType="VARCHAR" property="optionF"/>
+        <result column="option_G" jdbcType="VARCHAR" property="optionG"/>
+        <result column="answer" jdbcType="VARCHAR" property="answer"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+    </resultMap>
 
-  <resultMap id="CResultMap" type="com.examonline.common.entity.Temp_SMD_Question">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <association property="smd_questions" javaType="com.examonline.common.entity.SMD_Questions">
-      <id column="aid" jdbcType="INTEGER" property="id" />
-      <result column="question" jdbcType="VARCHAR" property="question" />
-      <result column="question_type" jdbcType="INTEGER" property="questionType" />
-      <result column="teacher_category_id" jdbcType="INTEGER" property="teacherCategoryId" />
-      <result column="pubdate" jdbcType="TIMESTAMP" property="pubdate" />
-      <result column="descrpt" jdbcType="VARCHAR" property="descrpt" />
-      <result column="option_A" jdbcType="VARCHAR" property="optionA" />
-      <result column="option_B" jdbcType="VARCHAR" property="optionB" />
-      <result column="option_C" jdbcType="VARCHAR" property="optionC" />
-      <result column="option_D" jdbcType="VARCHAR" property="optionD" />
-      <result column="option_E" jdbcType="VARCHAR" property="optionE" />
-      <result column="option_F" jdbcType="VARCHAR" property="optionF" />
-      <result column="option_G" jdbcType="VARCHAR" property="optionG" />
-      <result column="answer" jdbcType="VARCHAR" property="answer" />
-      <result column="state" jdbcType="INTEGER" property="state" />
-      <result column="user_id" jdbcType="INTEGER" property="userId" />
-    </association>
-    <association property="teacher_category" javaType="com.examonline.common.entity.Teacher_Category">
-      <id column="bid" jdbcType="INTEGER" property="id" />
-      <result column="teacher_category_name" jdbcType="VARCHAR" property="teacherCategoryName" />
-      <result column="course_id" jdbcType="INTEGER" property="courseId" />
-    </association>
-    <association property="courses" javaType="com.examonline.common.entity.Courses">
-      <id column="cid" jdbcType="INTEGER" property="id" />
-      <result column="course_name" jdbcType="VARCHAR" property="courseName" />
-    </association>
-  </resultMap>
+    <resultMap id="CResultMap" type="com.examonline.common.entity.Temp_SMD_Question">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <association property="smd_questions" javaType="com.examonline.common.entity.SMD_Questions">
+            <id column="aid" jdbcType="INTEGER" property="id"/>
+            <result column="question" jdbcType="VARCHAR" property="question"/>
+            <result column="question_type" jdbcType="INTEGER" property="questionType"/>
+            <result column="teacher_category_id" jdbcType="INTEGER" property="teacherCategoryId"/>
+            <result column="pubdate" jdbcType="TIMESTAMP" property="pubdate"/>
+            <result column="descrpt" jdbcType="VARCHAR" property="descrpt"/>
+            <result column="option_A" jdbcType="VARCHAR" property="optionA"/>
+            <result column="option_B" jdbcType="VARCHAR" property="optionB"/>
+            <result column="option_C" jdbcType="VARCHAR" property="optionC"/>
+            <result column="option_D" jdbcType="VARCHAR" property="optionD"/>
+            <result column="option_E" jdbcType="VARCHAR" property="optionE"/>
+            <result column="option_F" jdbcType="VARCHAR" property="optionF"/>
+            <result column="option_G" jdbcType="VARCHAR" property="optionG"/>
+            <result column="answer" jdbcType="VARCHAR" property="answer"/>
+            <result column="state" jdbcType="INTEGER" property="state"/>
+            <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        </association>
+        <association property="teacher_category" javaType="com.examonline.common.entity.Teacher_Category">
+            <id column="bid" jdbcType="INTEGER" property="id"/>
+            <result column="teacher_category_name" jdbcType="VARCHAR" property="teacherCategoryName"/>
+            <result column="course_id" jdbcType="INTEGER" property="courseId"/>
+        </association>
+        <association property="courses" javaType="com.examonline.common.entity.Courses">
+            <id column="cid" jdbcType="INTEGER" property="id"/>
+            <result column="course_name" jdbcType="VARCHAR" property="courseName"/>
+        </association>
+    </resultMap>
 
-  <select id="getTemp_SMD_Question" parameterType="java.lang.Integer" resultMap="CResultMap">
+    <select id="getTemp_SMD_Question" parameterType="java.lang.Integer" resultMap="CResultMap">
     SELECT a.id 'id', a.id 'aid', a.question, a.question_type, a.teacher_category_id, a.pubdate, a.descrpt, a.option_A, a.option_B,
     a.option_C, a.option_D, a.option_E, a.option_F, a.option_G, a.answer, a.state, a.user_id,
     b.id 'bid', b.teacher_category_name, b.course_id,
@@ -62,7 +62,7 @@
     AND b.course_id=c.id
   </select>
 
-  <select id="getTemp_SMD_QuestionBySMD_QuestionsID" parameterType="java.lang.Integer" resultMap="CResultMap">
+    <select id="getTemp_SMD_QuestionBySMD_QuestionsID" parameterType="java.lang.Integer" resultMap="CResultMap">
     SELECT a.id 'id', a.id 'aid', a.question, a.question_type, a.teacher_category_id, a.pubdate, a.descrpt, a.option_A, a.option_B,
     a.option_C, a.option_D, a.option_E, a.option_F, a.option_G, a.answer, a.state, a.user_id,
     b.id 'bid', b.teacher_category_name, b.course_id,
@@ -73,133 +73,141 @@
     AND b.course_id=c.id
   </select>
 
-  <select id="getAllTemp_SMD_Question" resultMap="CResultMap">
-    SELECT a.id 'id', a.id 'aid', a.question, a.question_type, a.teacher_category_id, a.pubdate, a.descrpt, a.option_A, a.option_B,
-    a.option_C, a.option_D, a.option_E, a.option_F, a.option_G, a.answer, a.state, a.user_id,
-    b.id 'bid', b.teacher_category_name, b.course_id,
-    c.id 'cid', c.course_name
-    from smd_questions as a,teacher_category AS b,courses AS c
-    <where>
-      <if test="userId!=null">
-        AND a.user_id=#{userId}
-      </if>
-      <if test="questionType!=null and courseId==null and teacherCategoryID==null">
-        AND a.question_type=#{questionType}
-        AND a.teacher_category_id = b.id
-        AND b.course_id=c.id
-      </if>
-      <if test="questionType==null and courseId!=null and teacherCategoryID==null">
-        AND c.id=#{courseId}
-        AND c.id=b.course_id
-        AND  b.id=a.teacher_category_id
-      </if>
-      <if test="questionType==null and courseId!=null and teacherCategoryID!=null">
-        AND a.teacher_category_id =#{teacherCategoryID}
-        AND a.teacher_category_id = b.id
-        AND b.course_id = c.id
-      </if>
-      <if test="questionType!=null and courseId!=null and teacherCategoryID!=null">
-        AND a.question_type=4
-        AND a.teacher_category_id =1
-        AND a.teacher_category_id = b.id
-        AND b.course_id = c.id
-      </if>
-    </where>
-  </select>
+    <select id="getAllTemp_SMD_Question" resultMap="CResultMap">
+        SELECT a.id 'id', a.id 'aid', a.question, a.question_type, a.teacher_category_id, a.pubdate, a.descrpt,
+        a.option_A, a.option_B,
+        a.option_C, a.option_D, a.option_E, a.option_F, a.option_G, a.answer, a.state, a.user_id,
+        b.id 'bid', b.teacher_category_name, b.course_id,
+        c.id 'cid', c.course_name
+        from smd_questions as a,teacher_category AS b,courses AS c
+        <where>
+            <if test="userId!=null">
+                AND a.user_id=#{userId}
+            </if>
+            <if test="questionType==null and courseId==null and teacherCategoryID==null">
+                AND a.teacher_category_id = b.id
+                AND b.course_id=c.id
+            </if>
+            <if test="questionType!=null and courseId==null and teacherCategoryID==null">
+                AND a.question_type=#{questionType}
+                AND a.teacher_category_id = b.id
+                AND b.course_id=c.id
+            </if>
+            <if test="questionType==null and courseId!=null and teacherCategoryID==null">
+                AND c.id=#{courseId}
+                AND c.id=b.course_id
+                AND b.id=a.teacher_category_id
+            </if>
+            <if test="questionType==null and courseId!=null and teacherCategoryID!=null">
+                AND a.teacher_category_id =#{teacherCategoryID}
+                AND a.teacher_category_id = b.id
+                AND b.course_id = c.id
+            </if>
+            <if test="questionType!=null and courseId!=null and teacherCategoryID!=null">
+                AND a.question_type=4
+                AND a.teacher_category_id =1
+                AND a.teacher_category_id = b.id
+                AND b.course_id = c.id
+            </if>
+        </where>
+    </select>
 
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
     id, question, question_type, teacher_category_id, pubdate, descrpt, option_A, option_B, 
     option_C, option_D, option_E, option_F, option_G, answer, state, user_id
   </sql>
-  <select id="selectByExample" parameterType="com.examonline.common.entity.SMD_QuestionsExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from smd_questions
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from smd_questions
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByExample" parameterType="com.examonline.common.entity.SMD_QuestionsExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from smd_questions
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from smd_questions
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from smd_questions
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.examonline.common.entity.SMD_QuestionsExample">
-    delete from smd_questions
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.examonline.common.entity.SMD_Questions">
+    <delete id="deleteByExample" parameterType="com.examonline.common.entity.SMD_QuestionsExample">
+        delete from smd_questions
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.examonline.common.entity.SMD_Questions">
     insert into smd_questions (id, question, question_type, 
       teacher_category_id, pubdate, descrpt, 
       option_A, option_B, option_C, 
@@ -213,245 +221,246 @@
       #{optionG,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
       #{userId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.examonline.common.entity.SMD_Questions">
-    insert into smd_questions
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="question != null">
-        question,
-      </if>
-      <if test="questionType != null">
-        question_type,
-      </if>
-      <if test="teacherCategoryId != null">
-        teacher_category_id,
-      </if>
-      <if test="pubdate != null">
-        pubdate,
-      </if>
-      <if test="descrpt != null">
-        descrpt,
-      </if>
-      <if test="optionA != null">
-        option_A,
-      </if>
-      <if test="optionB != null">
-        option_B,
-      </if>
-      <if test="optionC != null">
-        option_C,
-      </if>
-      <if test="optionD != null">
-        option_D,
-      </if>
-      <if test="optionE != null">
-        option_E,
-      </if>
-      <if test="optionF != null">
-        option_F,
-      </if>
-      <if test="optionG != null">
-        option_G,
-      </if>
-      <if test="answer != null">
-        answer,
-      </if>
-      <if test="state != null">
-        state,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="question != null">
-        #{question,jdbcType=VARCHAR},
-      </if>
-      <if test="questionType != null">
-        #{questionType,jdbcType=INTEGER},
-      </if>
-      <if test="teacherCategoryId != null">
-        #{teacherCategoryId,jdbcType=INTEGER},
-      </if>
-      <if test="pubdate != null">
-        #{pubdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="descrpt != null">
-        #{descrpt,jdbcType=VARCHAR},
-      </if>
-      <if test="optionA != null">
-        #{optionA,jdbcType=VARCHAR},
-      </if>
-      <if test="optionB != null">
-        #{optionB,jdbcType=VARCHAR},
-      </if>
-      <if test="optionC != null">
-        #{optionC,jdbcType=VARCHAR},
-      </if>
-      <if test="optionD != null">
-        #{optionD,jdbcType=VARCHAR},
-      </if>
-      <if test="optionE != null">
-        #{optionE,jdbcType=VARCHAR},
-      </if>
-      <if test="optionF != null">
-        #{optionF,jdbcType=VARCHAR},
-      </if>
-      <if test="optionG != null">
-        #{optionG,jdbcType=VARCHAR},
-      </if>
-      <if test="answer != null">
-        #{answer,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.examonline.common.entity.SMD_QuestionsExample" resultType="java.lang.Long">
-    select count(*) from smd_questions
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update smd_questions
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.question != null">
+    <insert id="insertSelective" parameterType="com.examonline.common.entity.SMD_Questions">
+        insert into smd_questions
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="question != null">
+                question,
+            </if>
+            <if test="questionType != null">
+                question_type,
+            </if>
+            <if test="teacherCategoryId != null">
+                teacher_category_id,
+            </if>
+            <if test="pubdate != null">
+                pubdate,
+            </if>
+            <if test="descrpt != null">
+                descrpt,
+            </if>
+            <if test="optionA != null">
+                option_A,
+            </if>
+            <if test="optionB != null">
+                option_B,
+            </if>
+            <if test="optionC != null">
+                option_C,
+            </if>
+            <if test="optionD != null">
+                option_D,
+            </if>
+            <if test="optionE != null">
+                option_E,
+            </if>
+            <if test="optionF != null">
+                option_F,
+            </if>
+            <if test="optionG != null">
+                option_G,
+            </if>
+            <if test="answer != null">
+                answer,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="question != null">
+                #{question,jdbcType=VARCHAR},
+            </if>
+            <if test="questionType != null">
+                #{questionType,jdbcType=INTEGER},
+            </if>
+            <if test="teacherCategoryId != null">
+                #{teacherCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="pubdate != null">
+                #{pubdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="descrpt != null">
+                #{descrpt,jdbcType=VARCHAR},
+            </if>
+            <if test="optionA != null">
+                #{optionA,jdbcType=VARCHAR},
+            </if>
+            <if test="optionB != null">
+                #{optionB,jdbcType=VARCHAR},
+            </if>
+            <if test="optionC != null">
+                #{optionC,jdbcType=VARCHAR},
+            </if>
+            <if test="optionD != null">
+                #{optionD,jdbcType=VARCHAR},
+            </if>
+            <if test="optionE != null">
+                #{optionE,jdbcType=VARCHAR},
+            </if>
+            <if test="optionF != null">
+                #{optionF,jdbcType=VARCHAR},
+            </if>
+            <if test="optionG != null">
+                #{optionG,jdbcType=VARCHAR},
+            </if>
+            <if test="answer != null">
+                #{answer,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.examonline.common.entity.SMD_QuestionsExample"
+            resultType="java.lang.Long">
+        select count(*) from smd_questions
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update smd_questions
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.question != null">
+                question = #{record.question,jdbcType=VARCHAR},
+            </if>
+            <if test="record.questionType != null">
+                question_type = #{record.questionType,jdbcType=INTEGER},
+            </if>
+            <if test="record.teacherCategoryId != null">
+                teacher_category_id = #{record.teacherCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="record.pubdate != null">
+                pubdate = #{record.pubdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.descrpt != null">
+                descrpt = #{record.descrpt,jdbcType=VARCHAR},
+            </if>
+            <if test="record.optionA != null">
+                option_A = #{record.optionA,jdbcType=VARCHAR},
+            </if>
+            <if test="record.optionB != null">
+                option_B = #{record.optionB,jdbcType=VARCHAR},
+            </if>
+            <if test="record.optionC != null">
+                option_C = #{record.optionC,jdbcType=VARCHAR},
+            </if>
+            <if test="record.optionD != null">
+                option_D = #{record.optionD,jdbcType=VARCHAR},
+            </if>
+            <if test="record.optionE != null">
+                option_E = #{record.optionE,jdbcType=VARCHAR},
+            </if>
+            <if test="record.optionF != null">
+                option_F = #{record.optionF,jdbcType=VARCHAR},
+            </if>
+            <if test="record.optionG != null">
+                option_G = #{record.optionG,jdbcType=VARCHAR},
+            </if>
+            <if test="record.answer != null">
+                answer = #{record.answer,jdbcType=VARCHAR},
+            </if>
+            <if test="record.state != null">
+                state = #{record.state,jdbcType=INTEGER},
+            </if>
+            <if test="record.userId != null">
+                user_id = #{record.userId,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update smd_questions
+        set id = #{record.id,jdbcType=INTEGER},
         question = #{record.question,jdbcType=VARCHAR},
-      </if>
-      <if test="record.questionType != null">
         question_type = #{record.questionType,jdbcType=INTEGER},
-      </if>
-      <if test="record.teacherCategoryId != null">
         teacher_category_id = #{record.teacherCategoryId,jdbcType=INTEGER},
-      </if>
-      <if test="record.pubdate != null">
         pubdate = #{record.pubdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.descrpt != null">
         descrpt = #{record.descrpt,jdbcType=VARCHAR},
-      </if>
-      <if test="record.optionA != null">
         option_A = #{record.optionA,jdbcType=VARCHAR},
-      </if>
-      <if test="record.optionB != null">
         option_B = #{record.optionB,jdbcType=VARCHAR},
-      </if>
-      <if test="record.optionC != null">
         option_C = #{record.optionC,jdbcType=VARCHAR},
-      </if>
-      <if test="record.optionD != null">
         option_D = #{record.optionD,jdbcType=VARCHAR},
-      </if>
-      <if test="record.optionE != null">
         option_E = #{record.optionE,jdbcType=VARCHAR},
-      </if>
-      <if test="record.optionF != null">
         option_F = #{record.optionF,jdbcType=VARCHAR},
-      </if>
-      <if test="record.optionG != null">
         option_G = #{record.optionG,jdbcType=VARCHAR},
-      </if>
-      <if test="record.answer != null">
         answer = #{record.answer,jdbcType=VARCHAR},
-      </if>
-      <if test="record.state != null">
         state = #{record.state,jdbcType=INTEGER},
-      </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update smd_questions
-    set id = #{record.id,jdbcType=INTEGER},
-      question = #{record.question,jdbcType=VARCHAR},
-      question_type = #{record.questionType,jdbcType=INTEGER},
-      teacher_category_id = #{record.teacherCategoryId,jdbcType=INTEGER},
-      pubdate = #{record.pubdate,jdbcType=TIMESTAMP},
-      descrpt = #{record.descrpt,jdbcType=VARCHAR},
-      option_A = #{record.optionA,jdbcType=VARCHAR},
-      option_B = #{record.optionB,jdbcType=VARCHAR},
-      option_C = #{record.optionC,jdbcType=VARCHAR},
-      option_D = #{record.optionD,jdbcType=VARCHAR},
-      option_E = #{record.optionE,jdbcType=VARCHAR},
-      option_F = #{record.optionF,jdbcType=VARCHAR},
-      option_G = #{record.optionG,jdbcType=VARCHAR},
-      answer = #{record.answer,jdbcType=VARCHAR},
-      state = #{record.state,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.examonline.common.entity.SMD_Questions">
-    update smd_questions
-    <set>
-      <if test="question != null">
-        question = #{question,jdbcType=VARCHAR},
-      </if>
-      <if test="questionType != null">
-        question_type = #{questionType,jdbcType=INTEGER},
-      </if>
-      <if test="teacherCategoryId != null">
-        teacher_category_id = #{teacherCategoryId,jdbcType=INTEGER},
-      </if>
-      <if test="pubdate != null">
-        pubdate = #{pubdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="descrpt != null">
-        descrpt = #{descrpt,jdbcType=VARCHAR},
-      </if>
-      <if test="optionA != null">
-        option_A = #{optionA,jdbcType=VARCHAR},
-      </if>
-      <if test="optionB != null">
-        option_B = #{optionB,jdbcType=VARCHAR},
-      </if>
-      <if test="optionC != null">
-        option_C = #{optionC,jdbcType=VARCHAR},
-      </if>
-      <if test="optionD != null">
-        option_D = #{optionD,jdbcType=VARCHAR},
-      </if>
-      <if test="optionE != null">
-        option_E = #{optionE,jdbcType=VARCHAR},
-      </if>
-      <if test="optionF != null">
-        option_F = #{optionF,jdbcType=VARCHAR},
-      </if>
-      <if test="optionG != null">
-        option_G = #{optionG,jdbcType=VARCHAR},
-      </if>
-      <if test="answer != null">
-        answer = #{answer,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        state = #{state,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.examonline.common.entity.SMD_Questions">
+        user_id = #{record.userId,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.examonline.common.entity.SMD_Questions">
+        update smd_questions
+        <set>
+            <if test="question != null">
+                question = #{question,jdbcType=VARCHAR},
+            </if>
+            <if test="questionType != null">
+                question_type = #{questionType,jdbcType=INTEGER},
+            </if>
+            <if test="teacherCategoryId != null">
+                teacher_category_id = #{teacherCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="pubdate != null">
+                pubdate = #{pubdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="descrpt != null">
+                descrpt = #{descrpt,jdbcType=VARCHAR},
+            </if>
+            <if test="optionA != null">
+                option_A = #{optionA,jdbcType=VARCHAR},
+            </if>
+            <if test="optionB != null">
+                option_B = #{optionB,jdbcType=VARCHAR},
+            </if>
+            <if test="optionC != null">
+                option_C = #{optionC,jdbcType=VARCHAR},
+            </if>
+            <if test="optionD != null">
+                option_D = #{optionD,jdbcType=VARCHAR},
+            </if>
+            <if test="optionE != null">
+                option_E = #{optionE,jdbcType=VARCHAR},
+            </if>
+            <if test="optionF != null">
+                option_F = #{optionF,jdbcType=VARCHAR},
+            </if>
+            <if test="optionG != null">
+                option_G = #{optionG,jdbcType=VARCHAR},
+            </if>
+            <if test="answer != null">
+                answer = #{answer,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.examonline.common.entity.SMD_Questions">
     update smd_questions
     set question = #{question,jdbcType=VARCHAR},
       question_type = #{questionType,jdbcType=INTEGER},

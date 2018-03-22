@@ -90,7 +90,7 @@
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
                 <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核
                 </button>
-                <button class="btn btn-secondary radius" onclick="question_save()" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿
+                <button class="btn btn-secondary radius" onclick="question_save()" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存草稿
                 </button>
                 <button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
             </div>
@@ -118,45 +118,49 @@
     
     function question_save() {
         var questiontype = $("#question_select");
-        layer.confirm("确认要保存到草稿吗",function (index) {
-            if (questiontype.val() == 0 || questiontype.val() == 1 || questiontype.val() == 2) {
-                $.ajax({
-                    type: "POST",   //提交的方法
-                    url: "/question/saveSMD", //提交的地址
-                    dataType: "json",
-                    data: $("#form-article-add").serialize(),// 序列化表单值
-                    error: function (request) {  //失败的话
-                        alert("Connection error");
-                    },
-                    success: function (data) {  //成功
-                        if(data.isGo){
-                            location.reload();
-                            removeIframe();
+        // alert($("#module_select option:selected").val()==null);
+        if($("#module_select option:selected").val()!=null){
+            layer.confirm("确认要保存到草稿吗",function (index) {
+                if (questiontype.val() == 0 || questiontype.val() == 1 || questiontype.val() == 2) {
+                    $.ajax({
+                        type: "POST",   //提交的方法
+                        url: "/question/saveSMD", //提交的地址
+                        dataType: "json",
+                        data: $("#form-article-add").serialize(),// 序列化表单值
+                        error: function (request) {  //失败的话
+                            alert("Connection error");
+                        },
+                        success: function (data) {  //成功
+                            if(data.isGo){
+                                location.reload();
+                                removeIframe();
 
-                        }else {
-                            layer.msg('操作是失败!', {icon: 5, time: 1000});
+                            }else {
+                                layer.msg('操作是失败!', {icon: 5, time: 1000});
+                            }
                         }
-                    }
-                });
-            } else if (questiontype.val() == 3 || questiontype.val() == 4) {
-                $.ajax({
-                    type: "POST",   //提交的方法
-                    url: "/question/saveFSP", //提交的地址
-                    data: $("#form-article-add").serialize(),// 序列化表单值
-                    async: false,
-                    error: function (request) {  //失败的话
-                        alert("Connection error");
-                    },
-                    success: function (data) {  //成功
-                        if(data.isGo){
-                            removeIframe();
-                        }else {
-                            layer.msg('操作是失败!', {icon: 5, time: 1000});
+                    });
+                } else if (questiontype.val() == 3 || questiontype.val() == 4) {
+                    $.ajax({
+                        type: "POST",   //提交的方法
+                        url: "/question/saveFSP", //提交的地址
+                        data: $("#form-article-add").serialize(),// 序列化表单值
+                        async: false,
+                        error: function (request) {  //失败的话
+                            alert("Connection error");
+                        },
+                        success: function (data) {  //成功
+                            if(data.isGo){
+                                removeIframe();
+                            }else {
+                                layer.msg('操作是失败!', {icon: 5, time: 1000});
+                            }
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
+
     }
     
     
@@ -532,7 +536,7 @@
 
         $("#subjects_select").change(function () {
             var subjects = $("#subjects_select option:selected");
-            alert(subjects.val());
+            // alert(subjects.val());
             $.ajax({
                 type: "POST",
                 url: "/question/selectChange",

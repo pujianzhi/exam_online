@@ -13,4 +13,6 @@ public interface SMD_QuestionsService {
     Integer insertSMD_Questions(SMD_Questions smd_questions);
     Integer updateSMD_Questions(SMD_Questions smd_questions);
     Integer deletSMD_Questions(Integer id);
+    List<Temp_SMD_Question> getAllTemp_SMD_Question(Integer id, Integer questionType, Integer courseId, Integer teacherCategoryID);
+
 }

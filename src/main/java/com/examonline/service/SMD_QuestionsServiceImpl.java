@@ -49,4 +49,9 @@ public class SMD_QuestionsServiceImpl implements  SMD_QuestionsService {
     public Integer deletSMD_Questions(Integer id) {
         return smd_questionsMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public List<Temp_SMD_Question> getAllTemp_SMD_Question(Integer id, Integer questionType, Integer courseId, Integer teacherCategoryID) {
+        return smd_questionsMapper.getAllTemp_SMD_Question(id,questionType,courseId,teacherCategoryID);
+    }
 }

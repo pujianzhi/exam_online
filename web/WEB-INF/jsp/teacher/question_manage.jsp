@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2018/3/18
-  Time: 15:01
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE HTML>
 <html>
@@ -66,7 +59,7 @@
         -
         <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax"
                class="input-text Wdate" style="width:120px;">
-        <button name="" id="" class="btn btn-success" onClick="search()"><i class="Hui-iconfont">&#xe665;</i> 搜试题</button>
+        <button class="btn btn-success" onClick="search()"><i class="Hui-iconfont">&#xe665;</i> 搜试题</button>
     </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"><a href="javascript:;" onclick="datasdel()"
                                                                class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
@@ -130,7 +123,7 @@
                     <c:if test="${smd_question.smd_questions.state==0||smd_question.smd_questions.state==2}">
                         <td class="td-manage"><a style="text-decoration:none"
                                                  onClick="question_submit(this,'${smd_question.smd_questions.id}','${smd_question.smd_questions.questionType}')"
-                                                 href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>
+                                                 href="javascript:;" title="提交审核"><i class="Hui-iconfont">&#xe6de;</i></a>
                             <a style="text-decoration:none" class="ml-5"
                                onClick="question_edit('题目编辑','/question/edit?id=${smd_question.smd_questions.id}&questionType=${smd_question.smd_questions.questionType}')"
                                href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a
@@ -223,8 +216,20 @@
 <script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
 
-    $(function () {
 
+    $('.table-sort').dataTable({
+        "aaSorting": [[1, "desc"]],//默认第几个排序
+        "bStateSave": true,//状态保存
+        "pading": false,
+        "aoColumnDefs": [
+            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+            {"orderable": false, "aTargets": [1, 7]}// 不参与排序的列
+        ]
+    });
+
+
+
+    $(function () {
         $("#question_select2").change(function () {
 
             var subjects = $("#question_select2 option:selected");
@@ -250,10 +255,8 @@
             }
         });
 
-
-
-
     });
+
     function datasdel() {
         var smdlist = $("tbody").find(".smd_question_id:checked");
         var fsplist = $("tbody").find(".fsp_question_id:checked");
@@ -298,26 +301,9 @@
     }
 
 
-    $('.table-sort').dataTable({
-        "aaSorting": [[1, "desc"]],//默认第几个排序
-        "bStateSave": true,//状态保存
-        "pading": false,
-        "aoColumnDefs": [
-            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable": false, "aTargets": [0, 7]}// 不参与排序的列
-        ]
-    });
-    //
-    // /*资讯-添加*/
-    // function article_add(title,url,w,h){
-    //     var index = layer.open({
-    //         type: 2,
-    //         title: title,
-    //         content: url
-    //     });
-    //     layer.full(index);
-    // }
-    /*资讯-编辑*/
+
+
+    /*题目-编辑*/
     function question_edit(title, url) {
         var index = layer.open({
             type: 2,
@@ -352,27 +338,7 @@
         });
     }
 
-    //
-    // /*资讯-审核*/
-    // function article_shenhe(obj,id){
-    //     layer.confirm('审核文章？', {
-    //             btn: ['通过','不通过','取消'],
-    //             shade: false,
-    //             closeBtn: 0
-    //         },
-    //         function(){
-    //             $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="article_start(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-    //             $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-    //             $(obj).remove();
-    //             layer.msg('已发布', {icon:6,time:1000});
-    //         },
-    //         function(){
-    //             $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="article_shenqing(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-    //             $(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">未通过</span>');
-    //             $(obj).remove();
-    //             layer.msg('未通过', {icon:5,time:1000});
-    //         });
-    // }
+
     /*题目-提交审核*/
     function question_submit(obj, id, questionType) {
         layer.confirm('确认要提交审核吗？', function (index) {
@@ -415,32 +381,35 @@
     // }
     
     function search() {
+        // $("tbody").children("tr").remove(".text-c");
         var va1 = $("#question_select1 option:selected").val();
         var va2 = $("#question_select2 option:selected").val();
         var va3 = $("#question_select3 option:selected").val();
-        if(va1=="all"){
-            va1=null;
-        }
-        if(va2=="all"){
-            va2=null;
-            va3=null;
-        }
+        var dateMin = $("#logmin").val();
+        var dateMax = $("#logmax").val();
+        // alert(va1+va2+va3+dateMin+dateMax+"");
 
         $.ajax({
             type: 'POST',
             url: '/question/search',
-            data: {va1: va1, va2: va2, va3: va3},
+            data: {va1: va1, va2: va2, va3: va3,dateMin:dateMin,dateMax:dateMax},
             dataType: 'json',
             success: function (data) {
+
                 if(data.smdlist!=null){
+                    $.each(data.smdlist,function (i,e) {
 
+                        // console.info(e);
+                    });
                 }else if(data.fspList!=null){
-
+                    $.each(data.fspList,function (i,e) {
+                        // console.info(e);
+                    });
                 }
             },
-            error: function (data) {
-                console.log(data.msg);
-            },
+            // error: function (data) {
+            //     console.log(data.msg);
+            // }
         });
     }
 

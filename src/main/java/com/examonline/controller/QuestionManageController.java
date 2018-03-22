@@ -2,11 +2,13 @@ package com.examonline.controller;
 
 
 import com.examonline.common.entity.*;
+import com.examonline.common.util.date.DateUtil;
 import com.examonline.service.CoursesService;
 import com.examonline.service.FSP_QuestionsService;
 import com.examonline.service.SMD_QuestionsService;
 import com.examonline.service.Teacher_CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -234,6 +236,8 @@ public class QuestionManageController {
 //        3为提交修改审核
         if(fsp_questions.getState()>0){
             fsp_questions.setState(3);
+        }else {
+            fsp_questions.setState(1);
         }
         fsp_questions.setPubdate(new Date());
         Integer i = fsp_questionsService.updateFSP_Questions(fsp_questions);
@@ -252,6 +256,8 @@ public class QuestionManageController {
 //        3为提交修改审核
         if(smd_questions.getState()>0){
             smd_questions.setState(3);
+        }else {
+            smd_questions.setState(1);
         }
         smd_questions.setPubdate(new Date());
         Integer i = smd_questionsService.updateSMD_Questions(smd_questions);
@@ -309,17 +315,103 @@ public class QuestionManageController {
     /*更新提交*/
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ResponseBody
-    public Object search(Integer va1,Integer va2,Integer va3){
+    public Object search(String va1, String va2, String va3,
+                         String dateMin,
+                         String dateMax,HttpSession session){
         Map<String,Object> data = new HashMap<>();
+        List<Temp_FSP_Question> fspList = new ArrayList<>();
+        List<Temp_FSP_Question> tempFspList = new ArrayList<>();
+        List<Temp_SMD_Question> smdList = new ArrayList<>();
+        List<Temp_SMD_Question> tempSmdList = new ArrayList<>();
         data.put("smdList",null);
         data.put("fspList",null);
-        if(va1==null){
-            if(va2==null){
+        System.out.println(va1+":"+va2+":"+va3+":"+dateMax+":"+dateMin);
+        Integer questionType = va1.equals("all")?null:Integer.parseInt(va1);
+        Integer courseId = va2.equals("all")?null:Integer.parseInt(va2);
+        Integer teacherCategoryID = va3.equals("all")?null:Integer.parseInt(va3);
+        Date min = dateMin.equals("")?null: DateUtil.String2Date(dateMin+" 00:00:00");
+        Date max = dateMax.equals("")?null: DateUtil.String2Date(dateMax+" 00:00:00");
+        User user = (User) session.getAttribute("user");
+        if (questionType==null){
+            if (courseId==null){
+                fspList = fsp_questionsService.getAllTemp_FSP_Question(user.getId(),null,null,null);
+                smdList = smd_questionsService.getAllTemp_SMD_Question(user.getId(),null,null,null);
 
+            }else {
+                if(teacherCategoryID==null){
+                    fspList =fsp_questionsService.getAllTemp_FSP_Question(user.getId(),null,courseId,null);
+                    smdList = smd_questionsService.getAllTemp_SMD_Question(user.getId(),null,courseId,null);
+
+                }else {
+                    fspList = fsp_questionsService.getAllTemp_FSP_Question(user.getId(),null,courseId,teacherCategoryID);
+                    smdList = smd_questionsService.getAllTemp_SMD_Question(user.getId(),null,courseId,teacherCategoryID);
+
+                }
             }
-        }else{
+        }else {
+            if (courseId==null){
+                fspList =fsp_questionsService.getAllTemp_FSP_Question(user.getId(),questionType,null,null);
+                smdList = smd_questionsService.getAllTemp_SMD_Question(user.getId(),questionType,null,null);
 
+            }else {
+                if(teacherCategoryID==null){
+                    fspList = fsp_questionsService.getAllTemp_FSP_Question(user.getId(),questionType,courseId,null);
+                    smdList = smd_questionsService.getAllTemp_SMD_Question(user.getId(),questionType,courseId,null);
+
+                }else {
+                    fspList = fsp_questionsService.getAllTemp_FSP_Question(user.getId(),questionType,courseId,teacherCategoryID);
+                    smdList = smd_questionsService.getAllTemp_SMD_Question(user.getId(),questionType,courseId,teacherCategoryID);
+                }
+            }
         }
+
+        for (Temp_FSP_Question t :
+                fspList) {
+            if (max == null && min != null) {
+                if (t.getFsp_questions().getPubdate().compareTo(min) >= 0) {
+                    tempFspList.add(t);
+                }
+            }else if (max!=null&&min==null){
+                if (t.getFsp_questions().getPubdate().compareTo(max) <= 0) {
+                    tempFspList.add(t);
+                }
+            }else if (max!=null&&min!=null){
+                if (t.getFsp_questions().getPubdate().compareTo(max) <= 0&&t.getFsp_questions().getPubdate().compareTo(min) >= 0) {
+                    tempFspList.add(t);
+                }
+            }else if(max == null && min == null){
+                tempFspList.add(t);
+            }
+        }
+
+        for (Temp_SMD_Question t:
+             smdList) {
+            if (max == null && min != null) {
+                if (t.getSmd_questions().getPubdate().compareTo(min) >= 0) {
+                    tempSmdList.add(t);
+                }
+            }else if (max!=null&&min==null){
+                if (t.getSmd_questions().getPubdate().compareTo(max) <= 0) {
+                    tempSmdList.add(t);
+                }
+            }else if (max!=null&&min!=null){
+                if (t.getSmd_questions().getPubdate().compareTo(max) <= 0&&t.getSmd_questions().getPubdate().compareTo(min) >= 0) {
+                    tempSmdList.add(t);
+                }
+            }else if(max == null && min == null){
+                tempSmdList.add(t);
+            }
+        }
+
+
+//        }else if(max!=null||min==null){
+//            if(t.getFsp_questions().getPubdate().compareTo(min)>=0){
+//                tempFspList.add(t);
+//            }
+//        }
+
+        data.put("smdList",tempSmdList);
+        data.put("fspList",tempFspList);
         return data;
     }
 
